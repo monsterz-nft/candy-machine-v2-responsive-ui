@@ -24,6 +24,7 @@ import {
 const cluster = process.env.REACT_APP_SOLANA_NETWORK!.toString();
 const decimals = process.env.REACT_APP_SPL_TOKEN_TO_MINT_DECIMALS ? +process.env.REACT_APP_SPL_TOKEN_TO_MINT_DECIMALS!.toString() : 9;
 const splTokenName = process.env.REACT_APP_SPL_TOKEN_TO_MINT_NAME ? process.env.REACT_APP_SPL_TOKEN_TO_MINT_NAME.toString() : "TOKEN";
+const canMintMultiple = process.env.REACT_APP_MINT_MULTIPLE_ENABLED ? process.env.REACT_APP_MINT_MULTIPLE_ENABLED.toString() === 'true' : false;
 
 const WalletContainer = styled.div`
   display: flex;
@@ -149,6 +150,7 @@ const MintContainer = styled.div`
   flex: 1 1 auto;
   flex-wrap: wrap;
   gap: 20px;
+  border-radius: 30px !important;
 `;
 
 const DesContainer = styled.div`
@@ -161,9 +163,9 @@ const DesContainer = styled.div`
 const Price = styled(Chip)`
   position: absolute;
   margin: 5px;
-  font-weight: bold;
-  font-size: 1.2em !important;
-  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1em !important;
+  background-color: #000 !important;
+  opacity: 0.8;
 `;
 
 const Image = styled.img`
@@ -588,12 +590,12 @@ const Home = (props: HomeProps) => {
                 <MintContainer>
                     <DesContainer>
                         <NFT elevation={3}>
-                            <h2>My NFT</h2>
+                            <h2>Sketchez by Pokemondundee</h2>
                             <br/>
                             <div><Price
-                                label={isActive && whitelistEnabled && (whitelistTokenBalance > 0) ? (whitelistPrice + " " + priceLabel) : (price + " " + priceLabel)}/><Image
-                                src="cool-cats.gif"
-                                alt="NFT To Mint"/></div>
+                                label={isActive && whitelistEnabled && (whitelistTokenBalance > 0) ? (whitelistPrice + " " + priceLabel) : (price + " $" + priceLabel)}/><Image
+                                src="sketchez.gif"
+                                alt="Sketchez by Pokemondundee"/></div>
                             <br/>
                             {wallet && isActive && whitelistEnabled && (whitelistTokenBalance > 0) && isBurnToken &&
                               <h3>You own {whitelistTokenBalance} WL mint {whitelistTokenBalance > 1 ? "tokens" : "token" }.</h3>}
@@ -656,25 +658,27 @@ const Home = (props: HomeProps) => {
                                                 />
                                             </GatewayProvider>
                                         ) : (
-                                            /*<MintButton
-                                                candyMachine={candyMachine}
-                                                isMinting={isMinting}
-                                                isActive={isActive}
-                                                isEnded={isEnded}
-                                                isSoldOut={isSoldOut}
-                                                onMint={startMint}
-                                            />*/
-                                            <MultiMintButton
-                                                candyMachine={candyMachine}
-                                                isMinting={isMinting}
-                                                isActive={isActive}
-                                                isEnded={isEnded}
-                                                isSoldOut={isSoldOut}
-                                                onMint={startMint}
-                                                price={whitelistEnabled ? whitelistPrice : price}
-                                            />
-                                        ) :
-                                        <h1>Mint is private.</h1>
+                                            (!canMintMultiple ? (
+                                                <MintButton
+                                                    candyMachine={candyMachine}
+                                                    isMinting={isMinting}
+                                                    isActive={isActive}
+                                                    isEnded={isEnded}
+                                                    isSoldOut={isSoldOut}
+                                                    onMint={startMint}
+                                                />
+                                                ) :
+                                                <MultiMintButton
+                                                    candyMachine={candyMachine}
+                                                    isMinting={isMinting}
+                                                    isActive={isActive}
+                                                    isEnded={isEnded}
+                                                    isSoldOut={isSoldOut}
+                                                    onMint={startMint}
+                                                    price={whitelistEnabled ? whitelistPrice : price}
+                                                />
+                                        )) :
+                                            <h1>Mint is private.</h1>
                                         )}
                             </MintButtonContainer>
                             <br/>

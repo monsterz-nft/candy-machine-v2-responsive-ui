@@ -27,7 +27,6 @@ export const Minus = styled.button`
   border: 0;
   border-radius: 50%;
   box-sizing: border-box;
-  font-family: 'Patrick Hand', cursive;
   vertical-align: middle;
 
   :not(disabled) {
@@ -51,7 +50,6 @@ export const NumericField = styled.input`
   background-color: var(--main-text-color);
   box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
   box-sizing: border-box;
-  font-family: 'Patrick Hand', cursive;
   font-weight: 500;
   line-height: 1;
   border-radius: 8px;
@@ -235,8 +233,6 @@ export const MultiMintButton = ({
                     onClick={() => incrementValue()}
                 >+</Plus>
             </div>
-            {!candyMachine?.state.isSoldOut && !isSoldOut && isActive &&
-              <h3>Total estimated cost (Solana fees included) : {totalCost} SOL</h3>}
         </div>
     );
 };
