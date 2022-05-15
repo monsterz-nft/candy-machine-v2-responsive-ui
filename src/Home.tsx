@@ -210,8 +210,8 @@ const Home = (props: HomeProps) => {
     const [itemsRemaining, setItemsRemaining] = useState(0);
     const [isSoldOut, setIsSoldOut] = useState(false);
     const [payWithSplToken, setPayWithSplToken] = useState(false);
-    const [price, setPrice] = useState(0);
-    const [priceLabel, setPriceLabel] = useState<string>("SOL");
+    const [price, setPrice] = useState(200);
+    const [priceLabel, setPriceLabel] = useState<string>("MNSTR");
     const [whitelistPrice, setWhitelistPrice] = useState(0);
     const [whitelistEnabled, setWhitelistEnabled] = useState(false);
     const [isBurnToken, setIsBurnToken] = useState(false);
